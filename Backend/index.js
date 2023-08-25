@@ -8,6 +8,7 @@ let PORT = db.port
 
 // Import Routes
 const authRoutes = require('./Routes/authRoutes')
+const destinationRoutes = require('./Routes/destinationRoutes')
 
 // App Initialization
 const app = express()
@@ -33,6 +34,7 @@ mongoose.connect(db.remoteUri, {
 
 // Routes :- Always create it below "app.use(bodyParser.json())" line
     app.use("/", authRoutes)
+    app.use("/", destinationRoutes)
 
 
 // PORT
