@@ -11,9 +11,7 @@ import {
 import {Dropdown} from 'react-native-element-dropdown';
 import { Country, State, City }  from 'country-state-city';
 
-export default function DropdownMenu() {
-
-  // console.log(State.getAllStates())
+export default function DropdownMenu({onCountryChange, onStateChange, onCityChange}) {
 
   const [countryData, setCountryData] = useState([]);   // All Countries
   const [country, setCountry] = useState(null);         // Selected Country Code
@@ -70,7 +68,8 @@ export default function DropdownMenu() {
             setCountry(item.value);
             handleState(item.value)
             setCountryName(item.label)
-            setIsFocus(false);            
+            setIsFocus(false);        
+            onCountryChange(item.value, item.label);    
           }}
         />
         <Dropdown
@@ -93,6 +92,7 @@ export default function DropdownMenu() {
             setIsFocus(false);
             setStateName(item.label)
             handleCity(country, item.value)
+            onStateChange(item.value, item.label);
           }}
         />
         <Dropdown
@@ -114,30 +114,9 @@ export default function DropdownMenu() {
             setCity(item.value);
             setCityName(item.label);
             setIsFocus(false);
+            onCityChange(item.value, item.label);
           }} 
         />
-
-        {/* Submit Button */}
-        {/* <TouchableOpacity
-          style={{
-            backgroundColor: '#0F3460',
-            padding: 20,
-            borderRadius: 15,
-            alignItems: 'center',
-          }}
-          onPress={() =>{
-            console.log(countryName, country, " -> ", stateName, state)
-          }}
-        >
-          <Text
-            style={{
-              color: '#fff',
-              textTransform: 'uppercase',
-              fontWeight: '600',
-            }}>
-            Submit
-          </Text>
-        </TouchableOpacity> */}
 
       </View>
     </View>
