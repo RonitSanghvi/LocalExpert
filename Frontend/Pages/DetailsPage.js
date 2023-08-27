@@ -16,7 +16,7 @@ function DetailsPage() {
     <View style={{backgroundColor:'#0D0D0D', flex:1}}>
         <ScrollView>
             <View>
-                <ImageBackground source={Img} style={{height:350}}><View style={{backgroundColor: 'rgba(0,0,0,0.4)', flex:1 }} /></ImageBackground>
+                <ImageBackground source={Img} style={{height:250}}><View style={{backgroundColor: 'rgba(0,0,0,0.4)', flex:1 }} /></ImageBackground>
             </View>
 
             <View style={{ position: 'relative', top: -30, left: 0, right: 0}}>

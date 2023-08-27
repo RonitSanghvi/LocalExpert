@@ -34,7 +34,6 @@ export const Styling = StyleSheet.create({
     },
     
     // -------- Homepage Intro Component --------
-
     homepageIntroView:{
         backgroundColor:'rgba(1,1,1,0.3)', 
         paddingTop:30,
@@ -82,13 +81,7 @@ export const Styling = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         paddingHorizontal: 10,
-        paddingVertical: 10,
-        // borderBottomColor: '#FFC600',
-        // borderLeftColor: '#FFC600',
-        // borderRightColor: '#FFC600',
-        // borderWidth: 2,
-        // borderBottomLeftRadius : 5, 
-        // borderBottomRightRadius: 5
+        paddingVertical: 10
     },
     destinnationCardMainText:{
         color:'white', fontWeight: 500, fontSize: 20
@@ -126,7 +119,6 @@ export const Styling = StyleSheet.create({
         backgroundColor: '#FFC600',
         borderRadius: 5,
         padding: 10, 
-        // width: 120,
         marginTop: 20,
         fontWeight:'bold',
         textAlign:'center'

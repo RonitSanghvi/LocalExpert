@@ -1,15 +1,16 @@
-import React, {useState, useEffect} from 'react'
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Button } from 'react-native'
+import React, {useState} from 'react'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { Styling } from '../Styles'
 import DropdownMenu from '../Components/Dropdown';
 import PhotoHandler from '../Components/PhotoHandler';
-import * as ImagePicker from 'expo-image-picker'
 
 function AddLocation() {
 
-  // const [hasGalleryPermission, setHasGalleryPermission]= useState(null)
-  const [image, setImage] = useState(null)
-  const [imageBase, setImageBase] = useState("")
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+
+  const [coverImage, setCoverImage] = useState(null)
+  const [coverImageBase, setCoverImageBase] = useState("")
 
   const [country, setCountry] = useState(null);
   const [countryName, setCountryName] = useState('');
@@ -18,16 +19,8 @@ function AddLocation() {
   const [city, setCity] = useState(null);
   const [cityName, setCityName] = useState('');
 
-  const CustomTextInput = ({ icon, ...rest }) => {
-      return (
-        <View style={styles.inputContainer}>
-          <TextInput style={styles.input} {...rest} />
-        </View>
-      );
-  };
-
   function handleSubmit() {
-    console.log(`All Selected info ${city} ${cityName} ${state} ${stateName} ${country} ${countryName} and Image: ${image}`);
+    console.log(`All Selected info ${name} ${city} ${cityName} ${state} ${stateName} ${country} ${countryName}`);
   }
 
   return (
@@ -36,7 +29,9 @@ function AddLocation() {
             Enter New Story
         </Text>
 
-        <CustomTextInput placeholder="Location Name" placeholderTextColor="gray"/>
+        <TextInput style={styles.input} placeholder='Location Name' placeholderTextColor="gray" value={name} onChangeText={(text)=> setName(text)} />
+        <TextInput style={styles.inputTwo} multiline={true} placeholder='Description' placeholderTextColor="gray" value={description} onChangeText={(text)=> setDescription(text)} />
+
           
         <DropdownMenu 
           onCountryChange={(selectedCountry, selectedCountryName) => {
@@ -53,8 +48,8 @@ function AddLocation() {
           }}
         />
 
-        <PhotoHandler setImage={setImage} setImageBase={setImageBase} />
-        {image && <Image source={{uri: image}} style={{width:"95%", height: "25%", margin: 10}} /> }
+        <PhotoHandler setImage={setCoverImage} setImageBase={setCoverImageBase} HorizontalRatio={4} VerticalRatio={3} />
+        {coverImage && <Image source={{uri: coverImage}} style={{width:120, height: 90, margin: 10}} /> }
 
         <TouchableOpacity style={{marginHorizontal:40, marginVertical: 15}} onPress={()=>{handleSubmit()}}>
             <Text style={{fontSize: 20, color:'black', backgroundColor:'#FFC600', borderRadius: 5, padding: 5, fontWeight:'bold', textAlign:'center'}}>
@@ -78,13 +73,26 @@ const styles = StyleSheet.create({
       marginRight: 10,
       flex: 1
     },
+    inputTwo: {
+      height: 100,
+      textAlignVertical:'bottom',
+      marginTop: 20,
+      color: 'white',
+      borderWidth: 1, 
+      borderColor: '#FFC600',
+      fontSize: 20,
+      width:'80%',
+      padding:5,
+      alignSelf: 'center',
+    },
     input: {
-      flex: 10,
       height: 40,
       color: 'white',
       borderBottomWidth: 1, 
       borderBottomColor: '#FFC600',
-      fontSize: 20
+      fontSize: 20,
+      width:'80%',
+      alignSelf: 'center'
     },
   });
   

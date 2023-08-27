@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-function PhotoHandler({ setImage, setImageBase }) {
+function PhotoHandler({ setImage, setImageBase, HorizontalRatio, VerticalRatio }) {
 
   const [hasGalleryPermission, setHasGalleryPermission]= useState(null)
 
@@ -17,7 +17,7 @@ function PhotoHandler({ setImage, setImageBase }) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [HorizontalRatio, VerticalRatio],
       quality: 1,
     });
 
