@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Destination = require('../Models/Destination')
+const User = require('../Models/User')
+
 
 // Database Connection
 var db = mongoose.connection;
@@ -153,4 +155,67 @@ exports.deleteDestination = ('/', async(req,res)=>{
         });
     }
 
+})
+
+exports.favorite = ("/", async(req, res) => {
+    try{
+        const destination = req.params._id
+
+        console.log("destination ID:", destination)
+        const user = await User.findOne({email:req.body.email}).exec()
+        if(user === null ){
+            console.log("User not found")
+            return res.json({
+                status: false,
+                status_code: 400,
+                message: "Email not exists",
+            });
+        }
+        else{
+            // Check if the destination ID already exists in the favorites array. Only one button will used to both add and remove destinations from favorite.
+            const isDestinationInFavorites = user.favorites.includes(destination);
+
+            // If not in favorite list then add it.
+            if (!isDestinationInFavorites) {
+
+                // Update the favorites array
+                await User.updateOne(
+                    { email: req.body.email },
+                    { $push: { favorites: destination } }
+                ).exec();
+
+                console.log("Destination added to favorites");
+
+                return res.json({
+                    status: true,
+                    status_code: 200,
+                    message: "Destination added to favorites",
+                });
+            } 
+            // If already in favorite list then remove it.
+            else {
+
+                await User.updateOne(
+                    { email: req.body.email },
+                    { $pull: { favorites: destination } }
+                ).exec();
+
+                console.log("Destination removed from favorites");
+
+                return res.json({
+                    status: true,
+                    status_code: 200,
+                    message: "Destination removed from favorites",
+                });
+            }
+        }
+        
+    }
+    catch(err){
+        return res.json({
+            status: false,
+            status_code: 400,
+            message: `error, ${err}`,
+        });
+    }
 })

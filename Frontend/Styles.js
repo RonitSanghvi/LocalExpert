@@ -95,7 +95,7 @@ export const Styling = StyleSheet.create({
     },
     countryImage:{
         width: 80, 
-        height: 80, 
+        height: 80,
         marginHorizontal: 5
     },
     countryImageText:{

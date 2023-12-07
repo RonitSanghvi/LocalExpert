@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground, Image, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { ImageBackground, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Styling } from '../Styles'
 import countries from './CountryList';
 import countryCode from './CountryCodes';

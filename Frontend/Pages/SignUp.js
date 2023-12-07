@@ -14,19 +14,11 @@ export default function Signup({navigation}) {
 
   const [loading, setLoading] = useState(false);
 
-  // const CustomTextInput = ({icon, value, onChangeText}) => {
-  //   return (
-  //     <View style={styles.inputContainer}>
-  //       <Icon name={icon} size={20} color="gray" style={styles.icon} />
-  //       <TextInput style={styles.input} value={value} onChangeText={onChangeText} placeholderTextColor="gray" />
-  //     </View>
-  //   );
-  // };
-
   async function handleSubmit() {
     setLoading(true)
 
     if(password === cpassword){
+
       await createUser({name, email, password})
       .then((res)=>{
         setLoading(false);
@@ -34,7 +26,7 @@ export default function Signup({navigation}) {
         setEmail("");
         setPassword("");
         setCpassword("");
-        console.log("Response from backend: ", res.data)
+        console.log("Response from backend: ", res)
       })
     }
     else{

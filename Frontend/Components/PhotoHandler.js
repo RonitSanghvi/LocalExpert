@@ -21,7 +21,7 @@ function PhotoHandler({ setImage, setImageBase, HorizontalRatio, VerticalRatio }
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImage(result.assets[0].uri);
       try {
         const response = await fetch(result.assets[0].uri);

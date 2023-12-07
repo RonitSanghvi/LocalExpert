@@ -6,11 +6,11 @@ import HomepageIntro from '../Components/HomepageIntro';
 import Country from '../Components/Country';
 import Destinations from '../Components/Destinations';
 
-export default function Homepage() {
+export default function Homepage({navigation}) {
   return (
     <ScrollView style={Styling.container}>
       
-      <HomepageIntro /> 
+      <HomepageIntro navigation={navigation}/> 
       <Country />
       <Destinations />
 

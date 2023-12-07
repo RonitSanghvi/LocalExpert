@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
 import { Styling } from '../Styles'
 import DropdownMenu from '../Components/Dropdown';
 import PhotoHandler from '../Components/PhotoHandler';
@@ -24,7 +24,7 @@ function AddLocation() {
   }
 
   return (
-    <View style={Styling.container}>
+    <ScrollView style={Styling.container}>
         <Text style={Styling.pageHeadingText}>
             Enter New Story
         </Text>
@@ -49,7 +49,7 @@ function AddLocation() {
         />
 
         <PhotoHandler setImage={setCoverImage} setImageBase={setCoverImageBase} HorizontalRatio={4} VerticalRatio={3} />
-        {coverImage && <Image source={{uri: coverImage}} style={{width:120, height: 90, margin: 10}} /> }
+        {coverImage && <Image source={{uri: coverImage}} style={{width:"80%", height:200, marginTop: 20, marginLeft: "10%"}} /> }
 
         <TouchableOpacity style={{marginHorizontal:40, marginVertical: 15}} onPress={()=>{handleSubmit()}}>
             <Text style={{fontSize: 20, color:'black', backgroundColor:'#FFC600', borderRadius: 5, padding: 5, fontWeight:'bold', textAlign:'center'}}>
@@ -57,7 +57,7 @@ function AddLocation() {
             </Text>
       </TouchableOpacity>
 
-    </View>
+    </ScrollView>
   )
 }
 

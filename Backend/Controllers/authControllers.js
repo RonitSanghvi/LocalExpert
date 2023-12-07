@@ -9,32 +9,34 @@ exports.signup = ("/", async(req, res)=>
 {
     try{
         const passwordFormat = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,999})/
-        // Password needs: 1 digit, 1 lowercase, 1 uppercase, 1 special character and length of 6 minimum. Not implemented yet
-        console.log(req.body)
+        // Password needs: 1 digit, 1 lowercase, 1 uppercase, 1 special character and length of 6 minimum.
+        
+        const data = req.body
+        console.log("Body Data: ", data.name, data.email, data.password)
 
         // 1. Check password length and format.
-        if(req.body.password.length < 6 ){
-            // if(!passwordFormat.test(req.body.password) && req.body.password.length < 6 ){
-            console.log('Password Format not followed')
+        if(!passwordFormat.test(data.password) || data.password.length < 6){
+            console.log("Format of password needs 1 digit, 1 lowercase, 1 uppercase, 1 special character and minimun 6 characters long")
             return res.status(400).send({
                 status: false,
                 status_code: 400,
-                message: 'Password Format not followed'
+                message: 'Password needs 1 digit, 1 lowercase, 1 uppercase, 1 special character and minimun 6 characters long'
             })
         }
 
         // 2. Check if email already exist.
-        const user = await User.findOne({email:req.body.email}).exec()
+        const user = await User.findOne({email:data.email}).exec()
+        console.log("user: ", user)
         if(user === null ){ 
-                        
-            const data = {
-                "name": req.body.name,
-                "email" : req.body.email,
-                "password" : req.body.password,
+            console.log("Not Found any data for this mail.")
+            const insertData = {
+                "name": data.name,
+                "email" : data.email,
+                "password" : data.password,
             }
             
             // Adding Data to Database
-            const insertUser = await User(data).save()  
+            const insertUser = await User(insertData).save()  
             return res.json({
                 status: true,
                 status_code: 200,
@@ -42,7 +44,6 @@ exports.signup = ("/", async(req, res)=>
             });
         }
         else{
-            console.log("Email already exist")
             return res.json({
                 status: false,
                 status_code: 400,

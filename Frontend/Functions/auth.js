@@ -2,13 +2,13 @@ import axios from "axios"
 import react from 'react'
 
   // For the SignUp page
-  export const createUser = async (postbody) => {
+  export const createUser = async (name, email, password) => {
     return await axios.post(
       `http://10.0.0.55:8000/signup`,
-      {postbody}
+      {name: name, email: email, password: password}
     )
     .then(res=>{
-      console.log( res.data)
+      console.log( "Response from Backend: ", res.data.message)
     }).catch(err=>{
       console.log( err )
     })
