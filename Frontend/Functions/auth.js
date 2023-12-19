@@ -1,8 +1,7 @@
 import axios from "axios"
-import react from 'react'
 
   // For the SignUp page
-  export const createUser = async (name, email, password) => {
+  export const createUser = async ({name, email, password}) => {
     return await axios.post(
       `http://10.0.0.55:8000/signup`,
       {name: name, email: email, password: password}
@@ -15,10 +14,10 @@ import react from 'react'
   };
 
   // For the Login page
-  export const loginUser = async (postbody) => {
+  export const loginUser = async ({email, password}) => {
     return await axios.post(
       `http://10.0.0.55:8000/login`,
-      postbody,
+      {email: email, password: password},
     
     );
   };

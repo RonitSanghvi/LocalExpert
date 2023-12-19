@@ -1,19 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { Styling } from '../Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet } from 'react-native';
+import { loginUser } from '../Functions/auth';
 
 export default function Login({navigation}) {
 
-  const CustomTextInput = ({ icon, ...rest }) => {
-    return (
-      <View style={styles.inputContainer}>
-        <Icon name={icon} size={20} color="#999" style={styles.icon} />
-        <TextInput style={styles.input} {...rest} />
-      </View>
-    );
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const [id, setID] = useState("") // Save User ID on successful Login
+
+  async function handleSubmit(){
+    setLoading(true)
+
+    if(email != "" || password != ""){
+
+      await loginUser({email, password})
+      .then((res)=>{
+        setLoading(false)
+        if(res.data.status_code == 200){
+          setID(res.data.data.user._id)
+          console.log("Res: ", res.data.message)
+          navigation.navigate('homePage')
+        }
+        else
+        {
+          console.log("Res: ", res.data.message)
+        }
+      })
+
+    }
+    else{
+      console.log("All Fields are mandatory.")
+    }
+  }
 
   return (
     <View style={Styling.container}>
@@ -21,13 +45,19 @@ export default function Login({navigation}) {
 
         <View style={Styling.horizontalLine} />
 
-        {/* Form */}
         <View style={{marginTop: 20}}>
-        <CustomTextInput icon="envelope" placeholder="Email" placeholderTextColor="gray" />
-        <CustomTextInput icon="lock" placeholder="Password" placeholderTextColor="gray" />
+        <View style={styles.inputContainer}>
+          <Icon name="envelope" size={20} color="gray" style={styles.icon} />
+          <TextInput style={styles.input} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="gray" />
+        </View>
+  
+        <View style={styles.inputContainer}>
+          <Icon name="lock" size={20} color="gray" style={styles.icon} />
+          <TextInput style={styles.input} value={password} onChangeText={setPassword} placeholder="Password" placeholderTextColor="gray" />
+        </View>
         </View>
         
-        <TouchableOpacity style={{marginHorizontal:40, marginVertical: 15}}>
+        <TouchableOpacity style={{marginHorizontal:40, marginVertical: 15}} onPress={handleSubmit}>
         <Text style={{fontSize: 20, color:'black', backgroundColor:'#FFC600', borderRadius: 5, padding: 5, fontWeight:'bold', textAlign:'center'}}>
             Log In
         </Text>

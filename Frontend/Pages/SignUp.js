@@ -17,20 +17,26 @@ export default function Signup({navigation}) {
   async function handleSubmit() {
     setLoading(true)
 
-    if(password === cpassword){
+    // Check if all fields are given.
+    if(password != "" || cpassword != "" || name != "" || email != ""){
 
-      await createUser({name, email, password})
-      .then((res)=>{
-        setLoading(false);
-        setName("");
-        setEmail("");
-        setPassword("");
-        setCpassword("");
-        console.log("Response from backend: ", res)
-      })
+      if(password === cpassword){
+        await createUser({name, email, password})
+        .then((res)=>{
+          setLoading(false);
+          setName("");
+          setEmail("");
+          setPassword("");
+          setCpassword("");
+          console.log("Response from backend: ", res)
+        })
+      }
+      else{
+        console.log("Password and Confirm Password is Different")
+      }
     }
     else{
-      console.log("Password and Confirm Password is Different")
+      console.log("All Fields are mandatory.")
     }
   }
 
@@ -41,7 +47,6 @@ export default function Signup({navigation}) {
       </View>
       <View style={Styling.horizontalLine} />
 
-      {/* Form */}
       <View style={{marginTop: 20}}>
   
         <View style={styles.inputContainer}>
@@ -64,11 +69,6 @@ export default function Signup({navigation}) {
           <TextInput style={styles.input} value={cpassword} onChangeText={setCpassword} placeholder="Confirm Password" placeholderTextColor="gray" />
         </View>
 
-
-        {/* <CustomTextInput icon="user" placeholder="User Name" value={name} onChangeText={setName} />
-        <CustomTextInput icon="envelope" placeholder="Email" placeholderTextColor="gray" valueinput={email} onChangeTextValue={setEmail} />
-        <CustomTextInput icon="lock" placeholder="Password" placeholderTextColor="gray" valueinput={password} onChangeTextValue={setPassword} />
-        <CustomTextInput icon="lock" placeholder="Confirm Password" placeholderTextColor="gray" valueinput={cpassword} onChangeTextValue={setCpassword} /> */}
       </View>
       
       <TouchableOpacity style={{marginHorizontal:40, marginVertical: 15}} onPress={handleSubmit} >

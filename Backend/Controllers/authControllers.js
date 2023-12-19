@@ -12,7 +12,7 @@ exports.signup = ("/", async(req, res)=>
         // Password needs: 1 digit, 1 lowercase, 1 uppercase, 1 special character and length of 6 minimum.
         
         const data = req.body
-        console.log("Body Data: ", data.name, data.email, data.password)
+        console.log("Body Data: ", data)
 
         // 1. Check password length and format.
         if(!passwordFormat.test(data.password) || data.password.length < 6){
@@ -26,9 +26,7 @@ exports.signup = ("/", async(req, res)=>
 
         // 2. Check if email already exist.
         const user = await User.findOne({email:data.email}).exec()
-        console.log("user: ", user)
         if(user === null ){ 
-            console.log("Not Found any data for this mail.")
             const insertData = {
                 "name": data.name,
                 "email" : data.email,
@@ -40,14 +38,14 @@ exports.signup = ("/", async(req, res)=>
             return res.json({
                 status: true,
                 status_code: 200,
-                message: "created successfully",
+                message: "Created Successfully",
             });
         }
         else{
             return res.json({
                 status: false,
                 status_code: 400,
-                message: "email already exists",
+                message: "Email already exists",
             });
         }
     }catch(err) {
@@ -69,7 +67,6 @@ exports.login = ("/", async (req,res) => {
         const password = req.body.password
 
         const user = await User.findOne({email:email})
-        // console.log("user",user)
         if(user === null){
             return res.json({
                 status: false,
@@ -78,9 +75,6 @@ exports.login = ("/", async (req,res) => {
             })
         }
         if(user.password === password){
-
-            const userbody= {email, password}
-            console.log("Login Successful: ",userbody);
 
             return res.json({
                 status: true,
@@ -91,7 +85,6 @@ exports.login = ("/", async (req,res) => {
         }
         else{
             // If password is Incorrect
-            console.log("password is incorrect")
             return res.json({
                 status: false,
                 status_code: 400,
