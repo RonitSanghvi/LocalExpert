@@ -4,15 +4,19 @@ import { Styling } from '../Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet } from 'react-native';
 import { loginUser } from '../Functions/auth';
+import { saveUserData } from '../Redux/User/userAction';
+import { useDispatch } from 'react-redux';
 
 export default function Login({navigation}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [id, setID] = useState("")
+  const [name, setName] = useState("")
 
   const [loading, setLoading] = useState(false);
 
-  const [id, setID] = useState("") // Save User ID on successful Login
+  const dispatch = useDispatch();
 
   async function handleSubmit(){
     setLoading(true)
@@ -24,7 +28,11 @@ export default function Login({navigation}) {
         setLoading(false)
         if(res.data.status_code == 200){
           setID(res.data.data.user._id)
+          setName(res.data.data.user.name)
           console.log("Res: ", res.data.message)
+          // Redux Dispatch Method
+          dispatch(saveUserData(res.data.data.user._id, email, res.data.data.user.name));
+
           navigation.navigate('homePage')
         }
         else
