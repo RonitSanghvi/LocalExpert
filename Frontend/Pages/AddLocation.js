@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView 
 import { Styling } from '../Styles'
 import DropdownMenu from '../Components/Dropdown';
 import PhotoHandler from '../Components/PhotoHandler';
+import { useSelector } from 'react-redux';
+import { addLocation } from '../Functions/destination';
 
 function AddLocation() {
 
@@ -18,9 +20,34 @@ function AddLocation() {
   const [stateName, setStateName] = useState('');
   const [city, setCity] = useState(null);
   const [cityName, setCityName] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit() {
-    console.log(`All Selected info ${name} ${city} ${cityName} ${state} ${stateName} ${country} ${countryName}`);
+  const userId = useSelector(state => state.user.userId);
+
+  async function handleSubmit() {
+    setLoading(true)
+
+    // Check if all fields are given.
+    if(name != "" || description != "" || city != "" || coverImageBase != ""){
+      // Image base is not accepted by Mongo on backend side as its too long. -------------------------------------------
+      await addLocation({name, countryName, stateName, cityName, description, userId, coverImage})
+      .then((res)=>{
+        setLoading(false);
+        // setName("");
+        // setCountry("");
+        // setState("");
+        // setCity("");
+        // setDescription("");
+        // setCoverImage("");
+        // setCoverImageBase("");
+        console.log("Response from backend: ", res)
+      })
+    }
+    else{
+      console.log("All Fields are mandatory.")
+    }
+    // console.log(`All Selected info ${name} ${city} ${cityName} ${state} ${stateName} ${country} ${countryName}`);
+    // console.log(`All Selected info ${userId}`);
   }
 
   return (
