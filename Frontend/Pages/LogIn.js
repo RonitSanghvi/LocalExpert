@@ -31,7 +31,7 @@ export default function Login({navigation}) {
           setName(res.data.data.user.name)
           console.log("Res: ", res.data.message)
           // Redux Dispatch Method
-          dispatch(saveUserData(res.data.data.user._id, email, res.data.data.user.name));
+          dispatch(saveUserData(res.data.data.user._id, email, res.data.data.user.name, password));
 
           navigation.navigate('homePage')
         }

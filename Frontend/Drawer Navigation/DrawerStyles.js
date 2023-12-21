@@ -19,6 +19,4 @@ export const DrawerStyling = StyleSheet.create({
     drawerMainText: {fontSize: 25, marginVertical:16, marginLeft: 16, color:'white'},
     horizontalLine: {borderBottomColor: '#FFC600', borderBottomWidth: 3, marginVertical: 10}
 
-
-
 })

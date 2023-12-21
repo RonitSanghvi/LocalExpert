@@ -1,10 +1,16 @@
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, View, TouchableOpacity } from 'react-native'
 import {DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-navigation/drawer'
 import { DrawerStyling } from './DrawerStyles'
 import Logo from '../assets/LogoText.png'
+import { useSelector, useDispatch } from 'react-redux';
+import { saveUserData } from '../Redux/User/userAction'
 
 function CustomDrawer(props) {
+
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.user.userId);
+
   return (
     <View style={DrawerStyling.mainView}>
         <View>
@@ -13,6 +19,7 @@ function CustomDrawer(props) {
                 Main Menu
             </Text>
             <View style={DrawerStyling.horizontalLine} />
+
         </View>
 
         <DrawerContentScrollView 
@@ -21,6 +28,13 @@ function CustomDrawer(props) {
         >
             <DrawerItemList {...props}  />
         </DrawerContentScrollView>
+
+        {userId && <TouchableOpacity style={{marginHorizontal:40, marginBottom: 35}} onPress={()=> dispatch(saveUserData('', '', '', ''))}>
+        <Text style={{fontSize: 20, color:'black', backgroundColor:'#FFC600', borderRadius: 5, padding: 5, fontWeight:'bold', textAlign:'center'}}>
+            Log Out
+        </Text>
+        </TouchableOpacity>}
+
     </View>
   )
 }

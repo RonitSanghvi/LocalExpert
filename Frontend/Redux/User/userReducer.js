@@ -4,6 +4,7 @@ const initialState = {
     userId: '',
     userEmail: '',
     userName: '',
+    userPassword: '',
     error: '',
 }
 
@@ -14,7 +15,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userId: action.payload.userId,
                 userEmail: action.payload.userEmail,
-                userName: action.payload.userName
+                userName: action.payload.userName,
+                userPassword: action.payload.userPassword
             }
         default: return state
     }

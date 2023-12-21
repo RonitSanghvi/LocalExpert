@@ -13,9 +13,14 @@ import StackNavigation from '../Stack Navigation/StackNavigation';  // For SignU
 import DetailsPage from '../Pages/DetailsPage';
 import AddLocation from '../Pages/AddLocation';
 
+import { useSelector } from 'react-redux';
+
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation() {
+
+    const userId = useSelector(state => state.user.userId);
+
     return (
         <Drawer.Navigator
             
@@ -52,17 +57,19 @@ export default function DrawerNavigation() {
             <Drawer.Screen
                 name='signup_login'
                 component={StackNavigation}
-                options={{title: 'SignUp / Login'}}
+                options={{title: 'SignUp / Login', drawerItemStyle: userId && {display:'none'}}}
             />
             <Drawer.Screen
                 name='favorites'
                 component={Favorites}
-                options={{title: 'Favorites'}}
+                options={{title: 'Favorites', drawerItemStyle: !userId && {display:'none'}}}
+                // options={{title: 'Favorites'}}
             />
             <Drawer.Screen
                 name='profile'
                 component={Profile}
-                options={{title: 'Profile'}}
+                options={{title: 'Profile', drawerItemStyle: !userId && {display:'none'}}}
+                // options={{title: 'Profile'}}
             />
             <Drawer.Screen
                 name='details'
@@ -72,7 +79,7 @@ export default function DrawerNavigation() {
             <Drawer.Screen
                 name='add_location'
                 component={AddLocation}
-                options={{title: 'Add Location'}}
+                options={{title: 'Add Location', drawerItemStyle: !userId && {display:'none'}}}
             />
         </Drawer.Navigator>
     )
