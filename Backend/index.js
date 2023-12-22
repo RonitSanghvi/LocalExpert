@@ -24,7 +24,7 @@ mongoose.connect(db.remoteUri, {
 })
 
 // Middleware
-    app.use(bodyParser.json())
+    app.use(bodyParser.json({limit: '15mb'}))
     app.use(bodyParser.urlencoded({
         extended:true
     }))

@@ -114,7 +114,7 @@ exports.getAllDestinations = async (req, res) => {
                 status: true,
                 status_code: 200,
                 data: results,
-                message: 'Destinations Fetched Successfully',
+                // message: 'Destinations Fetched Successfully',
             });
         }
     } catch (err) {

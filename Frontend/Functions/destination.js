@@ -1,10 +1,10 @@
 import axios from "axios"
 // Favorite Destination left
 
-  export const addLocation = async ({name, countryName, stateName, cityName, description, userId, coverImage}) => {
+  export const addLocation = async ({name, countryName, stateName, cityName, description, userId, coverImageBase}) => {
     return await axios.post(
       `http://10.0.0.55:8000/adddestination`,
-      {name: name, country: countryName, state: stateName, city: cityName, description: description, writer: userId, image: coverImage}
+      {name: name, country: countryName, state: stateName, city: cityName, description: description, writer: userId, image: coverImageBase}
     )
     .then(res=>{
       console.log( "Response from Backend: ", res.data.message)
@@ -16,21 +16,21 @@ import axios from "axios"
   // To show One Destination
   export const showDestination = async (id) => {
     return await axios.get(
-      `http://localhost:8000/showdestination/:_id`
+      `http://10.0.0.55:8000/showdestination/:_id`
     )
   }
 
   // To show All Destinations
-  export const showDestinations = async (id) => {
+  export const allDestinations = async () => {
     return await axios.get(
-      `http://localhost:8000/alldestinations`
+      `http://10.0.0.55:8000/alldestinations`
     )
   }
 
   // Update Destination
   export const updateDestination = async (postbody) => {
     return await axios.post(
-      'http://localhost:8000/updatedestination',
+      'http://10.0.0.55:8000/updatedestination',
       postbody
     )
   }
@@ -38,6 +38,6 @@ import axios from "axios"
   // Delete destination
   export const deleteDestination = async (id) => {
     return await axios.get(
-      `http://localhost:8000/deletedestination/:_id`
+      `http://10.0.0.55:8000/deletedestination/:_id`
     )
   }

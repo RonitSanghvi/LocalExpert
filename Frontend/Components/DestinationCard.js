@@ -3,17 +3,18 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Fort from '../assets/fort.jpg'
 import { Styling } from '../Styles';
 
-export default function DestinationCard() {
+export default function DestinationCard({name, writer, imageBase}) {
   return (
     <TouchableOpacity>
       <View style={Styling.destinationCard}>
           <Image 
-            source={Fort}
+            source={imageBase ? { uri: imageBase } : Fort}
             style={{width: '100%', height: 150, borderTopLeftRadius: 5, borderTopRightRadius: 5}}
           />
           <View style={Styling.destinationCardTextView}>
-              <Text style={Styling.destinnationCardMainText}>Amber Fort, India</Text>
-              <Text style={{color:'gray', fontSize: 14}}>Ronit Sanghvi</Text>
+              <Text style={Styling.destinnationCardMainText}>{name}</Text>
+              {/* <Text style={{color:'gray', fontSize: 14}}>{writer}</Text> */}
+              <Text style={{color:'gray', fontSize: 14}}>RCS</Text>
           </View>
       </View>
     </TouchableOpacity>

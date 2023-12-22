@@ -29,8 +29,7 @@ function AddLocation() {
 
     // Check if all fields are given.
     if(name != "" || description != "" || city != "" || coverImageBase != ""){
-      // Image base is not accepted by Mongo on backend side as its too long. -------------------------------------------
-      await addLocation({name, countryName, stateName, cityName, description, userId, coverImage})
+      await addLocation({name, countryName, stateName, cityName, description, userId, coverImageBase})
       .then((res)=>{
         setLoading(false);
         // setName("");
