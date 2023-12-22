@@ -2,10 +2,17 @@ import React from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Fort from '../assets/fort.jpg'
 import { Styling } from '../Styles';
+import { useNavigation } from '@react-navigation/native';
 
-export default function DestinationCard({name, writer, imageBase}) {
+export default function DestinationCard({ name, writer, imageBase, id}) {
+
+  const navigation = useNavigation();
+  const navigateToDetails = () => {
+    navigation.navigate('details', {id: id});
+  };
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={navigateToDetails}>
       <View style={Styling.destinationCard}>
           <Image 
             source={imageBase ? { uri: imageBase } : Fort}

@@ -55,13 +55,10 @@ export default function Destinations() {
         ) : (
           <ScrollView style={{ marginHorizontal: 20 }}>
             {destinations.map((destination, index) => (
-              <DestinationCard key={index} name={destination.name} writer={destination.writer} imageBase={destination.image}/>
+              <DestinationCard key={index} name={destination.name} writer={destination.writer} imageBase={destination.image} id={destination._id}/>
             ))}
           </ScrollView>
         )}
-        {/* <ScrollView style={{marginHorizontal: 20}}>
-          <DestinationCard/>
-        </ScrollView> */}
 
       </MotiView>
 

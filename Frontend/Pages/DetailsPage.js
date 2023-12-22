@@ -1,10 +1,31 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Text, TouchableOpacity, View, ImageBackground, ScrollView } from 'react-native'
 import Img from '../assets/Photo1.jpeg'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Styling } from '../Styles';
+import { showDestination } from '../Functions/destination';
 
-function DetailsPage() {
+function DetailsPage({route, navigation}) {
+
+    console.log('ID: ', id)
+    const [id, setId] = useState(route.params.id)
+    const [loading, setLoading] = useState(true)
+    const [destination, setDestination] = useState()
+
+    useEffect(()=>{
+        if(id){
+            console.log('Running')
+            async function getDestination(){
+                await showDestination(id)
+                .then((res)=>{
+                    setLoading(false)
+                    setDestination(res.data.data)
+                    console.log("Got It: ", res.data.data.name)
+                })
+            }
+           getDestination()
+        }
+    })
 
     const [isFavorite, setIsFavorite] = useState(false);
     const handleFavoritePress = () => {

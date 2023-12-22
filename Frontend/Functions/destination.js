@@ -16,7 +16,7 @@ import axios from "axios"
   // To show One Destination
   export const showDestination = async (id) => {
     return await axios.get(
-      `http://10.0.0.55:8000/showdestination/:_id`
+      `http://10.0.0.55:8000/showdestination/${id}`
     )
   }
 
