@@ -54,7 +54,7 @@ export default function Destinations() {
           <Text>Loading...</Text>
         ) : (
           <ScrollView style={{ marginHorizontal: 20 }}>
-            {destinations.map((destination, index) => (
+            {destinations.slice().reverse().map((destination, index) => (
               <DestinationCard key={index} name={destination.name} writer={destination.writer} imageBase={destination.image} id={destination._id}/>
             ))}
           </ScrollView>

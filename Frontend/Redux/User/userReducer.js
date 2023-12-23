@@ -1,4 +1,4 @@
-import { SAVE_USER_DATA } from "./userTypes"
+import { SAVE_USER_DATA, LOGOUT_USER } from "./userTypes"
 
 const initialState = {
     userId: '',
@@ -17,6 +17,14 @@ const reducer = (state = initialState, action) => {
                 userEmail: action.payload.userEmail,
                 userName: action.payload.userName,
                 userPassword: action.payload.userPassword
+            }
+        case LOGOUT_USER:
+            return{
+                ...state,
+                userId: '',
+                userEmail: '',
+                userName: '',
+                userPassword: ''
             }
         default: return state
     }

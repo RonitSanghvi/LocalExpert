@@ -1,15 +1,37 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Fort from '../assets/fort.jpg'
 import { Styling } from '../Styles';
 import { useNavigation } from '@react-navigation/native';
+import { showDestination } from '../Functions/destination';
+import { saveDestination } from '../Redux/Destination/destinationAction';
+import { useDispatch } from 'react-redux';
 
 export default function DestinationCard({ name, writer, imageBase, id}) {
+  const [loading, setLoading] = useState(true);
+  const [reduxLoad, setReduxLoad] = useState(false);
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
   const navigateToDetails = () => {
-    navigation.navigate('details', {id: id});
+    if(id){
+      async function getDestination(){
+          await showDestination(id)
+          .then((res)=>{
+            setLoading(false)
+            setReduxLoad(true)
+            // console.log("Got It: ", res.data.data.name)
+            reduxHandler(res.data.data)
+          })
+      }
+      getDestination()
+    }
   };
+
+  async function reduxHandler(res){
+    dispatch(saveDestination(id, name, res.city, res.state, res.country, res.description, writer, imageBase ))
+    navigation.navigate('details');
+  }
 
   return (
     <TouchableOpacity onPress={navigateToDetails}>

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { SAVE_USER_DATA } from "./userTypes"
+import { SAVE_USER_DATA, LOGOUT_USER } from "./userTypes"
 
 export const saveUserData = (userId, userEmail, userName, userPassword) => {
     return {
@@ -7,3 +7,9 @@ export const saveUserData = (userId, userEmail, userName, userPassword) => {
         payload: { userId, userEmail, userName, userPassword}
     };
 };
+
+export const logoutUser = () => {
+    return{
+        type: LOGOUT_USER
+    }
+}

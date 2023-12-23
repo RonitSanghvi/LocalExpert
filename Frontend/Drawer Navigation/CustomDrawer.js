@@ -4,7 +4,7 @@ import {DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-naviga
 import { DrawerStyling } from './DrawerStyles'
 import Logo from '../assets/LogoText.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { saveUserData } from '../Redux/User/userAction'
+import { logoutUser } from '../Redux/User/userAction'
 
 function CustomDrawer(props) {
 
@@ -29,7 +29,7 @@ function CustomDrawer(props) {
             <DrawerItemList {...props}  />
         </DrawerContentScrollView>
 
-        {userId && <TouchableOpacity style={{marginHorizontal:40, marginBottom: 35}} onPress={()=> dispatch(saveUserData('', '', '', ''))}>
+        {userId && <TouchableOpacity style={{marginHorizontal:40, marginBottom: 35}} onPress={()=> dispatch(logoutUser())}>
         <Text style={{fontSize: 20, color:'black', backgroundColor:'#FFC600', borderRadius: 5, padding: 5, fontWeight:'bold', textAlign:'center'}}>
             Log Out
         </Text>
