@@ -13,24 +13,28 @@ import axios from "axios"
     })
   };
 
-  // To show One Destination
   export const showDestination = async (id) => {
     return await axios.get(
       `http://10.0.0.55:8000/showdestination/${id}`
     )
   }
 
-  // To show All Destinations
   export const allDestinations = async () => {
     return await axios.get(
       `http://10.0.0.55:8000/alldestinations`
     )
   }
 
-  // Update Destination
   export const updateDestination = async (postbody) => {
     return await axios.post(
       'http://10.0.0.55:8000/updatedestination',
+      postbody
+    )
+  }
+
+  export const searchDestination = async (postbody) => {
+    return await axios.post(
+      'http://10.0.0.55:8000/searchDestination',
       postbody
     )
   }

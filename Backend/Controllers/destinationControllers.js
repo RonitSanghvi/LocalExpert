@@ -157,6 +157,44 @@ exports.deleteDestination = ('/', async(req,res)=>{
 
 })
 
+exports.searchDestination = async (req, res) => {
+    try {
+        const searchString = req.body.searchString;
+  
+      const results = await Destination.find({ 
+        $or: [
+            { name: { $regex: new RegExp(searchString, 'i') } },
+            { country: { $regex: new RegExp(searchString, 'i') } },
+            { state: { $regex: new RegExp(searchString, 'i') } },
+            { city: { $regex: new RegExp(searchString, 'i') } },
+          ],
+       })
+        .sort({ createdAt: -1 })
+        .exec();
+  
+      if (results.length === 0) {
+        return res.json({
+          status: false,
+          status_code: 400,
+          message: "No destinations found matching the search criteria",
+        });
+      } else {
+        return res.json({
+          status: true,
+          status_code: 200,
+          data: results,
+          message: 'Destinations Fetched Successfully',
+        });
+      }
+    } catch (err) {
+      return res.json({
+        status: false,
+        status_code: 400,
+        message: `Error: ${err}`,
+      });
+    }
+  };  
+
 exports.favorite = ("/", async(req, res) => {
     try{
         const destination = req.params._id

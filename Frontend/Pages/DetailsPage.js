@@ -1,14 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { Text, TouchableOpacity, View, ImageBackground, ScrollView } from 'react-native'
-import Img from '../assets/Photo1.jpeg'
+import Img from '../assets/mountain.jpg'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Styling } from '../Styles';
 import { useSelector } from 'react-redux';
 
 function DetailsPage({ navigation}) {
-
-    const [loading, setLoading] = useState(true)
-    const [destination, setDestination] = useState()
 
     const [isFavorite, setIsFavorite] = useState(false);
     const handleFavoritePress = () => {

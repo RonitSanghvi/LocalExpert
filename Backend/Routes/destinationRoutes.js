@@ -11,7 +11,7 @@ router.post("/adddestination", destinationController.addDestination);
 router.post("/updatedestination", destinationController.updateDestination);
 router.get("/showdestination/:_id", destinationController.showDestination);
 router.delete("/deletedestination/:_id", destinationController.deleteDestination);
-
-router.post("/favorite/:_id", destinationController.favorite)
+router.post("/searchDestination", destinationController.searchDestination);
+router.post("/favorite/:_id", destinationController.favorite);
 
 module.exports = router;
