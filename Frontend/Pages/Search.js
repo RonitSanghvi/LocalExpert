@@ -5,20 +5,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { searchDestination } from '../Functions/destination';
 
-// import { showDestination } from '../Functions/destination';
-
 import DestinationCard from '../Components/DestinationCard';
 
-function Search() {
+function Search({route}) {
 
   const [searchText, setSearchText] = useState('');
   const [destinationResults, setDestinationResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  async function handleSearch(){
+  async function handleSearch(text){
     try {
       setLoading(true);
-      const response = await searchDestination({ searchString: searchText });
+      const response = await searchDestination({ searchString: text });
 
       if (response.status) {
         setDestinationResults(response.data.data);
@@ -37,6 +35,12 @@ function Search() {
     console.log('Destination results updated');
   }, [destinationResults]);
 
+  useEffect(() => {
+    if (route.params && route.params.country) {
+      setSearchText(route.params.country);
+      handleSearch(route.params.country);
+    }
+  }, [route.params]);
 
   return (
     <View style={Styling.container}>
@@ -50,9 +54,10 @@ function Search() {
           underlineColorAndroid='transparent'
           value = {searchText}
           onChangeText={(text) => setSearchText(text)}
-          
+          onSubmitEditing={()=>handleSearch(searchText)}
+          returnKeyType="search"
         />
-        <MaterialCommunityIcons name='card-search' onPress={handleSearch} size={38} color="#FFC600"/>
+        <MaterialCommunityIcons name='card-search' onPress={()=>handleSearch(searchText)} size={38} color="#FFC600"/>
       </View>
 
       <ScrollView style={{marginHorizontal: 30}}>

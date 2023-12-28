@@ -3,12 +3,14 @@ import { ImageBackground, Text, View, ScrollView, TouchableOpacity } from 'react
 import { Styling } from '../Styles'
 import countries from './CountryList';
 import countryCode from './CountryCodes';
+import { useNavigation } from '@react-navigation/native';
 
 import { MotiView } from 'moti';
 
 export default function Country() {
 
   const uriLink = "https://flagcdn.com/256x192/"
+  const navigation = useNavigation();
   
   // Last Component's Total Animation Time : 1200
   const motiFrom = {opacity:0}
@@ -18,6 +20,10 @@ export default function Country() {
   const countryFrom = {transform: [{translateX: 300}], opacity: 0  }
   const countryAnimate = {transform: [{translateX: 0}], opacity: 1 }
   const countryTrans = {duration: 1000, type: 'timing', delay: 1700}
+
+  function handleCountry(item){
+    navigation.navigate('search', {country: item})
+  }
 
   return (
     <MotiView
@@ -33,7 +39,7 @@ export default function Country() {
           {
             countries.map((item, index)=>(
 
-              <TouchableOpacity key={item}>
+              <TouchableOpacity onPress={()=> handleCountry(item)} key={item}>
                 <MotiView
                   from={countryFrom}
                   animate={countryAnimate}

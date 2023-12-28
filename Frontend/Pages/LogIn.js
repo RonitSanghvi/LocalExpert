@@ -6,6 +6,8 @@ import { StyleSheet } from 'react-native';
 import { loginUser } from '../Functions/auth';
 import { saveUserData } from '../Redux/User/userAction';
 import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
+
 
 export default function Login({navigation}) {
 
@@ -17,6 +19,15 @@ export default function Login({navigation}) {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+
+  const showToast = (name) => {
+    console.log('first: ', name)
+    Toast.show({
+      type: 'success',
+      text1: '👋 Hello '+ name,
+      text2: 'Login Success'
+    });
+  }
 
   async function handleSubmit(){
     setLoading(true)
@@ -32,7 +43,7 @@ export default function Login({navigation}) {
           console.log("Res: ", res.data.message)
           // Redux Dispatch Method
           dispatch(saveUserData(res.data.data.user._id, email, res.data.data.user.name, password, res.data.data.user.favorites));
-
+          showToast(res.data.data.user.name)
           navigation.navigate('homePage')
         }
         else
