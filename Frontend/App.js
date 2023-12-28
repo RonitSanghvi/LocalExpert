@@ -3,13 +3,14 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigation from './Drawer Navigation/DrawerNavigation';
 
-import store from './Redux/Store';        // Redux Store
-import {  Provider } from 'react-redux'   // To provide store access to all components.
+// Redux Store Setup
+import store from './Redux/Store';        
+import {Provider} from 'react-redux'   
 
+// Short Message Setup
 import Toast from 'react-native-toast-message';
 
 export default function App() {
-
   return (
     <Provider store={store}>
       <NavigationContainer>

@@ -29,7 +29,7 @@ import axios from "axios"
     )
   }
 
-  // Update
+  // Update User
   export const updateUser = async (postbody) => {
     return await axios.post(
       'http://localhost:8000/update',
@@ -37,7 +37,7 @@ import axios from "axios"
     )
   }
 
-  // Delete
+  // Delete User
   export const deleteUser = async (id) => {
     return await axios.get(
       `http://localhost:8000/delete/${email}`

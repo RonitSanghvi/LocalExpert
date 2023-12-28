@@ -21,7 +21,6 @@ export default function Login({navigation}) {
   const dispatch = useDispatch();
 
   const showToast = (name) => {
-    console.log('first: ', name)
     Toast.show({
       type: 'success',
       text1: '👋 Hello '+ name,

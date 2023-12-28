@@ -98,6 +98,7 @@ export const Styling = StyleSheet.create({
         height: 80,
         marginHorizontal: 5
     },
+    countryImageStyle:{borderRadius: 50},
     countryImageText:{
         marginHorizontal:'auto',
         alignSelf:'center',

@@ -1,6 +1,7 @@
 import axios from "axios"
 // Favorite Destination left
 
+  // Add New Destination
   export const addLocation = async ({name, countryName, stateName, cityName, description, userId, coverImageBase}) => {
     return await axios.post(
       `http://10.0.0.55:8000/adddestination`,
@@ -39,7 +40,6 @@ import axios from "axios"
     )
   }
 
-  // Delete destination
   export const deleteDestination = async (id) => {
     return await axios.get(
       `http://10.0.0.55:8000/deletedestination/:_id`

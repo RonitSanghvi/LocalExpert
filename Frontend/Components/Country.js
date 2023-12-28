@@ -45,7 +45,7 @@ export default function Country() {
                   animate={countryAnimate}
                   transition={countryTrans}
                 >
-                  <ImageBackground source={{uri: uriLink + countryCode[index] + '.png'}} imageStyle={{borderRadius: 50}} style={Styling.countryImage} />
+                  <ImageBackground source={{uri: uriLink + countryCode[index] + '.png'}} imageStyle={Styling.countryImageStyle} style={Styling.countryImage} />
                   <Text style={Styling.countryImageText}>{item}</Text>
                 </MotiView>
               </TouchableOpacity>

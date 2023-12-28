@@ -1,17 +1,20 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import CustomDrawer from './CustomDrawer';
-import { DrawerStyling } from './DrawerStyles';
 import { Image } from 'react-native';
 import Logo from '../assets/Logo.png'
 
+// Styling
+import { DrawerStyling } from './DrawerStyles';
+
+// Pages of Application
 import Homepage from '../Pages/Homepage';
 import Favorites from '../Pages/Favorites';
 import Search from '../Pages/Search';
 import Profile from '../Pages/Profile';
-import StackNavigation from '../Stack Navigation/StackNavigation';  // For SignUp and Login Page Navigation 
 import DetailsPage from '../Pages/DetailsPage';
 import AddLocation from '../Pages/AddLocation';
+import StackNavigation from '../Stack Navigation/StackNavigation';  // For SignUp and Login Page Navigation 
 
 import { useSelector } from 'react-redux';
 
@@ -63,13 +66,11 @@ export default function DrawerNavigation() {
                 name='favorites'
                 component={Favorites}
                 options={{title: 'Favorites', drawerItemStyle: !userId && {display:'none'}}}
-                // options={{title: 'Favorites'}}
             />
             <Drawer.Screen
                 name='profile'
                 component={Profile}
                 options={{title: 'Profile', drawerItemStyle: !userId && {display:'none'}}}
-                // options={{title: 'Profile'}}
             />
             <Drawer.Screen
                 name='details'

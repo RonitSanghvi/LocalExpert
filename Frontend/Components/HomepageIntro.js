@@ -4,11 +4,11 @@ import BGPic from '../assets/mountain.jpg'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Styling } from '../Styles';
 import { useSelector } from 'react-redux';
-
 import { MotiView } from 'moti';
 
 export default function HomepageIntro({navigation}) {
 
+  // Animation Setup
   const motiFrom = {transform: [{translateY: 50}], opacity: 0}
   const motiAnimate = {transform: [{translateY: 0}], opacity: 1}
   const motiTransition = {duration: 1000, type: 'timing', delay: 100}

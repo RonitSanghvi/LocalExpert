@@ -1,29 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import { ScrollView, View, Text } from 'react-native'
 import { Styling } from '../Styles'
 import DestinationCard from './DestinationCard'
 import { MotiView } from 'moti'
-import { allDestinations } from '../Functions/destination'
+import { fetchDestinations } from '../Functions/fetchDestination'
 
 export default function Destinations() {
-
-  const [destinations, setDestinations] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      await allDestinations()
-      .then((res)=>{
-        setLoading(false);
-        setDestinations(res.data.data);
-      })
-      .catch((err)=>{
-        console.log("ERROR: ", err)
-      })
-    };
-
-    fetchData();
-  }, []);
 
   // Last Component's Total Animation Time : 2700
   const motiFrom = {opacity:0}
@@ -49,18 +31,13 @@ export default function Destinations() {
         transition={destinationTrans} 
       >
 
-        {loading ? (
-          <Text>Loading...</Text>
-        ) : (
-          <ScrollView style={{ marginHorizontal: 20 }}>
-            {destinations.slice().reverse().map((destination, index) => (
-              <DestinationCard key={index} name={destination.name} writer={destination.writer} imageBase={destination.image} id={destination._id}/>
-            ))}
-          </ScrollView>
-        )}
+        <ScrollView style={{ marginHorizontal: 20 }}>
+          {fetchDestinations((destinations) => destinations).map((destination, index) => (
+            <DestinationCard key={index} name={destination.name} writer={destination.writer} imageBase={destination.image} id={destination._id} />
+          ))}
+        </ScrollView>
 
       </MotiView>
-
     </MotiView>
   )
 }
