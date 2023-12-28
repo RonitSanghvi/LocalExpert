@@ -33,7 +33,7 @@ function Search() {
   }
 
   useEffect(() => {
-    // This useEffect will run whenever destinationResults changes
+    // This useEffect will run whenever destinationResults changes. This helps to re-run the DestinationCard component when search data changes.
     console.log('Destination results updated');
   }, [destinationResults]);
 
@@ -56,7 +56,7 @@ function Search() {
       </View>
 
       <ScrollView style={{marginHorizontal: 30}}>
-        {destinationResults.map((destination, index) => (
+        {destinationResults && destinationResults.slice().reverse().map((destination, index) => (
           <DestinationCard
             key={index}
             id={destination._id}

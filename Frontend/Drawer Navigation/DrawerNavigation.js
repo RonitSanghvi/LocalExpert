@@ -74,7 +74,7 @@ export default function DrawerNavigation() {
             <Drawer.Screen
                 name='details'
                 component={DetailsPage}
-                options={{title: 'Details'}}
+                options={{title: 'Details', drawerItemStyle: {display: 'none'}}}
             />
             <Drawer.Screen
                 name='add_location'

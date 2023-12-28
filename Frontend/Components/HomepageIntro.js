@@ -14,7 +14,6 @@ export default function HomepageIntro({navigation}) {
   const motiTransition = {duration: 1000, type: 'timing', delay: 100}
 
   const userId = useSelector(state => state.user.userId);
-  console.log("Found ID in HomePageIntro: ", userId)
 
   return (
     <MotiView

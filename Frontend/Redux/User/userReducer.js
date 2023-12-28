@@ -5,6 +5,7 @@ const initialState = {
     userEmail: '',
     userName: '',
     userPassword: '',
+    userFavorites: '',
     error: '',
 }
 
@@ -16,7 +17,8 @@ const reducer = (state = initialState, action) => {
                 userId: action.payload.userId,
                 userEmail: action.payload.userEmail,
                 userName: action.payload.userName,
-                userPassword: action.payload.userPassword
+                userPassword: action.payload.userPassword,
+                userFavorites: action.payload.userFavorites
             }
         case LOGOUT_USER:
             return{

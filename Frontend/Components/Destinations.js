@@ -15,7 +15,6 @@ export default function Destinations() {
       await allDestinations()
       .then((res)=>{
         setLoading(false);
-        console.log("Res: ", res.data.status_code)
         setDestinations(res.data.data);
       })
       .catch((err)=>{

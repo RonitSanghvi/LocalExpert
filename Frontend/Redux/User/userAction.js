@@ -1,10 +1,10 @@
 import axios from "axios"
 import { SAVE_USER_DATA, LOGOUT_USER } from "./userTypes"
 
-export const saveUserData = (userId, userEmail, userName, userPassword) => {
+export const saveUserData = (userId, userEmail, userName, userPassword, userFavorites) => {
     return {
         type: SAVE_USER_DATA,
-        payload: { userId, userEmail, userName, userPassword}
+        payload: { userId, userEmail, userName, userPassword, userFavorites}
     };
 };
 
