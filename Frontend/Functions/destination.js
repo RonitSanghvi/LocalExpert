@@ -40,8 +40,16 @@ import axios from "axios"
     )
   }
 
-  export const deleteDestination = async (id) => {
-    return await axios.get(
-      `http://10.0.0.55:8000/deletedestination/:_id`
+  // export const deleteDestination = async (id) => {
+  //   return await axios.get(
+  //     `http://10.0.0.55:8000/deletedestination/:_id`
+  //   )
+  // }
+
+  export const favorites = async (postbody) => {
+    return await axios.post(
+      `http://10.0.0.55:8000/favorite/${postbody.id}`,
+      postbody
     )
   }
+

@@ -3,14 +3,14 @@ import { Text, TouchableOpacity, View, ImageBackground, ScrollView } from 'react
 import Img from '../assets/mountain.jpg'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Styling } from '../Styles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {favorites} from '../Functions/destination'
+import { favoriteHandler } from '../Redux/User/userAction';
 
 function DetailsPage({ navigation}) {
 
     const [isFavorite, setIsFavorite] = useState(false);
-    const handleFavoritePress = () => {
-        setIsFavorite(!isFavorite);
-    };
+    const dispatch = useDispatch();
     
     const id = useSelector(state => state.destination.Id);
     const name = useSelector(state => state.destination.Name);
@@ -19,6 +19,18 @@ function DetailsPage({ navigation}) {
     const description = useSelector(state => state.destination.Description);
     const image = useSelector(state=> state.destination.Image)
 
+    const userEmail = useSelector(state => state.user.userEmail)
+    const userFavorites = useSelector(state => state.user.userFavorites)
+
+    async function handleFavoritePress() {
+        await favorites({id:id, email:userEmail})
+        .then((res)=>dispatch(favoriteHandler(res.data.data)))
+        setIsFavorite(!isFavorite);
+    };
+
+    useEffect(() => {
+        setIsFavorite(userFavorites.includes(id));
+    }, [userFavorites, id]);
 
   return (
     <View style={{backgroundColor:'#0D0D0D', flex:1}}>
@@ -32,9 +44,10 @@ function DetailsPage({ navigation}) {
 
                     <View style={{flexDirection: 'row', width:'100%', justifyContent:'space-between', paddingHorizontal: 5, alignContent:'center'}}>
                         <Text style={{color:'white', fontSize: 28, fontWeight:'bold'}}>{name}</Text>
-                        <TouchableOpacity onPress={handleFavoritePress}>
+                        {userEmail && <TouchableOpacity onPress={handleFavoritePress}>
                             <Icon name={isFavorite ? 'heart' : 'heart-outline'} fill='0' size={36} color='#FFC600' />
                         </TouchableOpacity>
+                        }
                     </View>
 
                     <View style={{flexDirection: 'row', width:'100%', marginTop: 5}}>

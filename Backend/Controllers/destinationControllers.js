@@ -198,8 +198,7 @@ exports.searchDestination = async (req, res) => {
 exports.favorite = ("/", async(req, res) => {
     try{
         const destination = req.params._id
-
-        console.log("destination ID:", destination)
+        console.log("destination ID and body ", destination, req.body.email)
         const user = await User.findOne({email:req.body.email}).exec()
         if(user === null ){
             console.log("User not found")
@@ -223,11 +222,13 @@ exports.favorite = ("/", async(req, res) => {
                 ).exec();
 
                 console.log("Destination added to favorites");
+                const updatedUser = await User.findOne({ email: req.body.email }).exec();
 
                 return res.json({
                     status: true,
                     status_code: 200,
                     message: "Destination added to favorites",
+                    data: updatedUser.favorites
                 });
             } 
             // If already in favorite list then remove it.
@@ -239,11 +240,13 @@ exports.favorite = ("/", async(req, res) => {
                 ).exec();
 
                 console.log("Destination removed from favorites");
+                const updatedUser = await User.findOne({ email: req.body.email }).exec();
 
                 return res.json({
                     status: true,
                     status_code: 200,
                     message: "Destination removed from favorites",
+                    data: updatedUser.favorites
                 });
             }
         }
