@@ -23,16 +23,16 @@ import axios from "axios"
   };
 
   // To show user
-  export const showUser = async (id) => {
+  export const showUser = async (email) => {
     return await axios.get(
-      `http://localhost:8000/showuser/${email}`
+      `http://10.0.0.55:8000/showuser/${email}`
     )
   }
 
   // Update User
   export const updateUser = async (postbody) => {
     return await axios.post(
-      'http://localhost:8000/update',
+      'http://10.0.0.55:8000/update',
       postbody
     )
   }

@@ -32,14 +32,18 @@ function AddLocation() {
       await addLocation({name, countryName, stateName, cityName, description, userId, coverImageBase})
       .then((res)=>{
         setLoading(false);
-        // setName("");
-        // setCountry("");
-        // setState("");
-        // setCity("");
-        // setDescription("");
-        // setCoverImage("");
-        // setCoverImageBase("");
+        setName("");
+        setCountry("");
+        setCountryName('');
+        setState("");
+        setStateName('');
+        setCity("");
+        setCityName('');
+        setDescription("");
+        setCoverImage("");
+        setCoverImageBase("");
         console.log("Response from backend: ", res)
+        
       })
     }
     else{

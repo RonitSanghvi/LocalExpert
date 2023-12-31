@@ -104,7 +104,6 @@ exports.login = ("/", async (req,res) => {
 // EDIT ACCOUNT DETAILS
 exports.update = ("/",async(req,res) => {
     try{
-
         const Check = await User.findOne({email:req.body.email}).exec()
         if(Check === null ){
             return res.json({

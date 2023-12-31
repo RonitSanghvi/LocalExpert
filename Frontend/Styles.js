@@ -76,6 +76,12 @@ export const Styling = StyleSheet.create({
         borderRadius: 5,
         flexDirection: 'column'
     },
+    destinationCardImage:{
+        width: '100%', 
+        height: 150, 
+        borderTopLeftRadius: 5, 
+        borderTopRightRadius: 5
+    },
     destinationCardTextView:{
         flexDirection:'row', 
         justifyContent:'space-between',
@@ -85,6 +91,10 @@ export const Styling = StyleSheet.create({
     },
     destinnationCardMainText:{
         color:'white', fontWeight: 500, fontSize: 20
+    },
+    destinationCardCountryText:{
+        color:'gray', 
+        fontSize: 14
     },
 
     // ------ Country Component ------

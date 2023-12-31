@@ -10,7 +10,6 @@ export function fetchDestinations( filterFunction, dependencies) {
         async function fetchData() {
             await allDestinations()
             .then((res)=>{
-              console.log("Destination Fetching Complete ", dependencies)
               setLoading(false);
               setDestinations(res.data.data.slice().reverse());
             })

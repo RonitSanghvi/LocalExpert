@@ -14,7 +14,6 @@ function CustomDrawer(props) {
   const navigation = useNavigation();
 
   function handleLogout(){
-    console.log("User Logout")
     navigation.navigate('homePage')
     dispatch(logoutUser())
   }

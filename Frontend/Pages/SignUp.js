@@ -1,18 +1,32 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { Styling } from '../Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet } from 'react-native';
-import { createUser } from '../Functions/auth';
+import { createUser, updateUser } from '../Functions/auth';
+import { updateUser as UPDATEUSER }  from '../Redux/User/userAction';
+import { useDispatch } from 'react-redux';
 
-export default function Signup({navigation}) {
+export default function Signup({navigation, route}) {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Check if there are parameters in the route, indicating an update scenario
+    if (route.params) {
+      const { userId, userEmail, userName, userPassword } = route.params;
+      setName(userName);
+      setEmail(userEmail);
+      setPassword(userPassword);
+      setCpassword(userPassword);
+    }
+  }, [route.params]);
 
   async function handleSubmit() {
     setLoading(true)
@@ -21,15 +35,26 @@ export default function Signup({navigation}) {
     if(password != "" || cpassword != "" || name != "" || email != ""){
 
       if(password === cpassword){
-        await createUser({name, email, password})
-        .then((res)=>{
-          setLoading(false);
-          setName("");
-          setEmail("");
-          setPassword("");
-          setCpassword("");
-          console.log("Response from backend: ", res)
-        })
+
+        if (route.params && route.params.userId) {
+          // Update existing user profile
+          await updateUser({ name, email, password }).then((res) => {
+            setLoading(false);
+            dispatch(UPDATEUSER(name, password));
+            navigation.navigate('homePage')
+            // Handle success or error in update
+          });
+        } else{
+
+          await createUser({name, email, password})
+          .then((res)=>{
+            setLoading(false);
+            setName("");
+            setEmail("");
+            setPassword("");
+            setCpassword("");
+          })
+        }
       }
       else{
         console.log("Password and Confirm Password is Different")
@@ -73,17 +98,17 @@ export default function Signup({navigation}) {
       
       <TouchableOpacity style={{marginHorizontal:40, marginVertical: 15}} onPress={handleSubmit} >
         <Text style={{fontSize: 20, color:'black', backgroundColor:'#FFC600', borderRadius: 5, padding: 5, fontWeight:'bold', textAlign:'center'}}>
-          Sign Up
+          {route.params ? 'Update Profile' : 'Sign Up'}
         </Text>
       </TouchableOpacity>
 
-      <View style={{flexDirection:'row', marginLeft: 40}}>
+      {!route.params && <View style={{flexDirection:'row', marginLeft: 40}}>
         <Text style={Styling.detailText2}>Already Have an Account ? </Text> 
         
         <TouchableOpacity onPress={() => {navigation.navigate('login')}}>
           <Text style={{...Styling.detailText2, color: '#FFC600'}}> Login </Text>
         </TouchableOpacity>
-      </View>
+      </View>}
       
     </View>
   )

@@ -33,7 +33,7 @@ export default function Destinations() {
 
         <ScrollView style={{ marginHorizontal: 20 }}>
           {fetchDestinations((destinations) => destinations).map((destination, index) => (
-            <DestinationCard key={index} name={destination.name} writer={destination.writer} imageBase={destination.image} id={destination._id} />
+            <DestinationCard key={index} name={destination.name} country={destination.country} imageBase={destination.image} id={destination._id} />
           ))}
         </ScrollView>
 

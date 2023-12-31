@@ -39,7 +39,7 @@ export default function Login({navigation}) {
         if(res.data.status_code == 200){
           setID(res.data.data.user._id)
           setName(res.data.data.user.name)
-          console.log("Res: ", res.data.message)
+          // console.log("Res: ", res.data.message)
           // Redux Dispatch Method
           dispatch(saveUserData(res.data.data.user._id, email, res.data.data.user.name, password, res.data.data.user.favorites));
           showToast(res.data.data.user.name)

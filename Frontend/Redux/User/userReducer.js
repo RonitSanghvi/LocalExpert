@@ -1,4 +1,4 @@
-import { SAVE_USER_DATA, LOGOUT_USER, FAVORITE } from "./userTypes"
+import { SAVE_USER_DATA, LOGOUT_USER, FAVORITE, UPDATE_USER } from "./userTypes"
 
 const initialState = {
     userId: '',
@@ -33,6 +33,12 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 userFavorites: action.payload.userFavorites
+            }
+        case UPDATE_USER:
+            return{
+                ...state,
+                userName: action.payload.userName,
+                userPassword: action.payload.userPassword
             }
         default: return state
     }

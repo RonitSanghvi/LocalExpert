@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Alert,
-  StatusBar,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 

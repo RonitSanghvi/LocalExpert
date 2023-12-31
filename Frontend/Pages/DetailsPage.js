@@ -3,40 +3,52 @@ import { Text, TouchableOpacity, View, ImageBackground, ScrollView } from 'react
 import Img from '../assets/mountain.jpg'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Styling } from '../Styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {favorites} from '../Functions/destination'
+import { deleteDestination } from '../Functions/destination';
+import { useNavigation } from '@react-navigation/native';
+import { showUser } from '../Functions/auth';
 import { favoriteHandler } from '../Redux/User/userAction';
+import { useDispatch } from 'react-redux';
 
-function DetailsPage({ navigation}) {
+function DetailsPage({route}) {
 
     const [isFavorite, setIsFavorite] = useState(false);
+    const navigation = useNavigation();
     const dispatch = useDispatch();
-    
-    const id = useSelector(state => state.destination.Id);
-    const name = useSelector(state => state.destination.Name);
-    const city = useSelector(state => state.destination.City);
-    const country = useSelector(state => state.destination.Country);
-    const description = useSelector(state => state.destination.Description);
-    const image = useSelector(state=> state.destination.Image)
 
+    const { id, name, city, state, country, description, writer, imageBase } = route.params;
+    
     const userEmail = useSelector(state => state.user.userEmail)
     const userFavorites = useSelector(state => state.user.userFavorites)
+    const userId = useSelector(state => state.user.userId)
+
 
     async function handleFavoritePress() {
         await favorites({id:id, email:userEmail})
-        .then((res)=>dispatch(favoriteHandler(res.data.data)))
+        .then(()=> updateRedux())
         setIsFavorite(!isFavorite);
     };
+
+    async function updateRedux(){
+        await showUser(userEmail)
+        .then((res)=>dispatch(favoriteHandler(res.data.data.favorites)))
+    }
 
     useEffect(() => {
         setIsFavorite(userFavorites.includes(id));
     }, [userFavorites, id]);
 
+    async function handleDelete(){
+        await deleteDestination(id)
+        .then(()=> navigation.navigate('homePage'))
+    }
+
   return (
     <View style={{backgroundColor:'#0D0D0D', flex:1}}>
         <ScrollView>
             <View>
-                <ImageBackground source={image ? { uri: image } : Img} style={{height:250}}><View style={{backgroundColor: 'rgba(0,0,0,0.4)', flex:1 }} /></ImageBackground>
+                <ImageBackground source={imageBase ? { uri: imageBase } : Img} style={{height:250}}><View style={{backgroundColor: 'rgba(0,0,0,0.4)', flex:1 }} /></ImageBackground>
             </View>
 
             <View style={{ position: 'relative', top: -30, left: 0, right: 0}}>
@@ -55,16 +67,16 @@ function DetailsPage({ navigation}) {
                         <Text style={{color:'white', fontSize: 20, paddingHorizontal: 6}}>{city}, {country}</Text>
                     </View>
 
-                    <Text style={{color:'gray', fontSize: 18, marginTop: 25, fontWeight:'bold'}} >By Ronit Sanghvi</Text>
+                    {/* <Text style={{color:'gray', fontSize: 18, marginTop: 25, fontWeight:'bold'}} >By Ronit Sanghvi</Text> */}
 
                     <Text style={{color:'rgba(255,255,255,1)', fontSize: 15, textAlign:'justify', marginTop: 10, }}> {description} </Text>
 
                     {/* This Button is only applicable for user's own stories */}
-                    <TouchableOpacity style={{marginHorizontal: 25}}>
+                    {writer == userId && <TouchableOpacity style={{marginHorizontal: 25}} onPress={()=> handleDelete()}>
                         <Text style={Styling.editButton}>
-                            EDIT DETAILS
+                            DELETE LOCATION
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
                 </View>
             </View>
         </ScrollView>
