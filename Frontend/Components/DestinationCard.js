@@ -41,7 +41,7 @@ export default function DestinationCard({ name, country, imageBase, id}) {
             style={Styling.destinationCardImage}
           />
           <View style={Styling.destinationCardTextView}>
-              <Text style={Styling.destinnationCardMainText}>{name}</Text>
+              <Text style={Styling.destinationCardMainText}>{name}</Text>
               <Text style={Styling.destinationCardCountryText}>{country}</Text>
           </View>
       </View>

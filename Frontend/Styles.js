@@ -20,7 +20,7 @@ export const Styling = StyleSheet.create({
     // ----- Homepage Common Components -----
     headingText:{
         fontSize:22,
-        fontWeight:'500',
+        fontWeight:'bold',
         textAlign:'center',
         marginTop:20,
         marginBottom: 4,
@@ -89,8 +89,10 @@ export const Styling = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 10
     },
-    destinnationCardMainText:{
-        color:'white', fontWeight: 500, fontSize: 20
+    destinationCardMainText:{
+        color:'white', 
+        fontSize: 20,
+        fontWeight: 'bold'
     },
     destinationCardCountryText:{
         color:'gray', 
