@@ -35,3 +35,16 @@
 ###
 
 <p align="left">📚 Pages<br>- Home Page<br>- Signup/Signin Page<br>- Favorites<br>- Profile<br>- Details Page<br><br>📚 Features<br>- Sidebar<br>- Animation<br>- Clean Code<br>- Redux<br>- Toast Message<br>- Axios</p>
+
+###
+
+<div>
+  <h2>We welcome contributions to this project! Here's how to fork the repository</h2>
+  <ul>
+    <li>Click the 'Fork' button in the top right corner of this repository.</li>
+    <li>This will create a copy of the repository in your account.</li>
+    <li>Make changes to your forked copy (create a new branch for your changes).</li>
+    <li>Push your changes to your forked repository.</li>
+    <li>Create a pull request to submit your changes for review.</li>
+  </ul>
+</div>
